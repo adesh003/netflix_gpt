@@ -1,11 +1,9 @@
-
-import './App.css';
+import React from 'react';
+import Body from './components/Body';
 
 function App() {
   return (
-    <div className="App">
-     <p className='text-3xl'>okk hello</p>
-    </div>
+   <Body/>
   );
 }
 
