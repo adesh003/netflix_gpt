@@ -1,28 +1,57 @@
-import { signOut } from "firebase/auth";
-import React from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import React, { useEffect } from "react";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+import { NETFLIX_LOGO, USER_AVATAR } from "../utils/constant";
 
 const Header = () => {
   const navigate = useNavigate();
 
-  const user = useSelector(store => store.user)
+  const user = useSelector((store) => store.user);
 
-  const handleSignOut = ()=>{
-    signOut(auth).then(() => {
-  // Sign-out successful.
-  navigate("/")
-}).catch((error) => {
-  // navigate("/error")
-});
-  }
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            photoURL: photoURL,
+            displayName: displayName,
+          })
+        );
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+
+    return () => unsubscribe();
+     
+  }, [dispatch,navigate]);
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        navigate("/");
+      })
+      .catch((error) => {
+        // navigate("/error")
+      });
+  };
   return (
     <div className="absolute top-0 left-0 w-full py-4 px-8 bg-gradient-to-b from-black z-10 flex justify-between items-center">
       <div className="flex items-center">
         <img
           className="w-44"
-          src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production_2025-07-24/consent/87b6a5c0-0104-4e96-a291-092c11350111/019808e2-d1e7-7c0f-ad43-c485b7d9a221/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+          src={NETFLIX_LOGO}
           alt="netflix_logo"
         />
         {user && ( // Conditionally render navigation links
@@ -41,7 +70,7 @@ const Header = () => {
         <div className="flex items-center">
           {/* Search Icon as SVG */}
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+           
             className="h-6 w-6 text-white mr-4 cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
@@ -56,7 +85,7 @@ const Header = () => {
           </svg>
           {/* Bell Icon as SVG */}
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+         
             className="h-6 w-6 text-white mr-4 cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
@@ -71,7 +100,7 @@ const Header = () => {
           </svg>
           <img
             className="w-8 h-8 rounded-md cursor-pointer"
-            src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+            src={ USER_AVATAR}
             alt="profile_icon"
           />
           <div>

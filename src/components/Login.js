@@ -7,16 +7,15 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import{addUser} from '../utils/userSlice'
+import { HOMEPAGE_BG_IMAGE, USER_AVATAR } from "../utils/constant";
 
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userName = useRef(null);
@@ -26,6 +25,9 @@ const Login = () => {
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };
+
+
+  // AUTH LOGIC 
 
   const handleBtnData = (e) => {
     e.preventDefault();
@@ -48,7 +50,7 @@ const Login = () => {
           // Update profile after successful sign-up
           updateProfile(user, {
             displayName: name,
-            photoURL: "https://example.com/jane-q-user/profile.jpg",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -60,7 +62,7 @@ const Login = () => {
                   displayName: displayName,
                 })
               );
-              navigate("/browse");
+           
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -84,14 +86,13 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
 
-          navigate("/browse");
+      
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage(errorCode + " - " + errorMessage);
-          // navigate("/error");
         });
     }
   };
@@ -100,7 +101,7 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/3e4bd046-85a3-40e1-842d-fa11cec84349/web/IN-en-20250818-TRIFECTA-perspective_4bd1b66d-bbb6-4bc6-ba8f-ecbba53a1278_large.jpg"
+          src={HOMEPAGE_BG_IMAGE}
           alt="netflix-image"
         ></img>
       </div>
