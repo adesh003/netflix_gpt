@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Secondary = () => {
+const SecondaryComponent = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Secondary = () => {
   )
 }
 
-export default Secondary
+export default SecondaryComponent
