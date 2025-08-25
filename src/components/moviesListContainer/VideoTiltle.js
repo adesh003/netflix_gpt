@@ -8,7 +8,7 @@ const VideoTitle = ({ original_title, overview }) => {
       <h1 className="font-extrabold text-6xl drop-shadow-lg mb-4">
         {original_title}
       </h1>
-      <p className="text-lg text-gray-200 drop-shadow-md mb-6">
+      <p className="text-lg text-gray-200 drop-shadow-md mb-6 ">
         {overview}
       </p>
       <div className="flex space-x-4">
