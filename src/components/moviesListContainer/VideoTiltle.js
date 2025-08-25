@@ -1,21 +1,30 @@
-import React from 'react'
+import React from "react";
 
-const VideoTiltle = ({original_title , overview}) => {
+const VideoTitle = ({ original_title, overview }) => {
   return (
- <div className="flex flex-col justify-center h-screen w-screen  px-12 ">
-  <h1 className="font-bold text-6xl mb-4">{original_title}</h1>
-  <p className="w-1/3 py-6 text-lg">{overview}</p>
-  <div className="flex">
-    <button className="p-4 px-10 rounded-lg text-white bg-gray-600 bg-opacity-50 hover:bg-opacity-70">
-      ▶️ Play
-    </button>
-    <button className="ml-4 p-4 px-10 rounded-lg text-white bg-gray-600 bg-opacity-50 hover:bg-opacity-70">
-      More Info
-    </button>
-  </div>
-</div>
+    
+    <div className="absolute bg-gradient-to-r from-black w-screen aspect-video "> 
+    <div className="absolute top-1/4 left-12 pt-[10%]  text-white max-w-xl ">
+      <h1 className="font-extrabold text-6xl drop-shadow-lg mb-4">
+        {original_title}
+      </h1>
+      <p className="text-lg text-gray-200 drop-shadow-md mb-6">
+        {overview}
+      </p>
+      <div className="flex space-x-4">
+        <button className="p-4 px-10 rounded-lg bg-white text-black font-bold hover:bg-gray-300 transition">
+          ▶️ Play
+        </button>
+        <button className="p-4 px-10 rounded-lg bg-gray-600 bg-opacity-50 hover:bg-opacity-70 transition">
+          More Info
+        </button>
+      </div>
+    </div>
+    </div>
+  );
+};
 
-  )
-}
 
-export default VideoTiltle
+export default VideoTitle;
+
+

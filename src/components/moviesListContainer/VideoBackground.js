@@ -1,43 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { API_OPTIONS } from "../../utils/constant";
 
-const VideoBackground = () => {
-  const[TrailerId , setTralerId] = useState(null);
 
-  const getMovieData = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/911430/videos?language=en-US",
-      API_OPTIONS
-    );
-    const json = await data.json();
+import useTrailerVideo from "../../hooks/useTrailerVideo";
+import { useSelector } from "react-redux";
 
-    console.log(json);
+const VideoBackground = ({ movieId }) => {
+ 
+  const trailerVideo = useSelector((store) => store?.movies?.trailerVideo);
 
-    const filterData = json.results.filter((video) => video.type === "Trailer");
-    console.log(filterData);
-    const Trailer = filterData[0];
-    setTralerId(Trailer.key)
-  };
+  useTrailerVideo(movieId);
 
-  useEffect(() => {
-    getMovieData();
-  }, []);
+  if (!trailerVideo) {
+    return <div>Loading trailer...</div>;
+  }
+
+  const videoSrc = `https://www.youtube.com/embed/${trailerVideo?.key}?autoplay=1&mute=1`;
 
   return (
-    <div>
+    <div className="w-screen">
       <iframe
-        width="560"
-        height="315"
-        src={"https://www.youtube.com/embed/ge_ABjtYx88?si=" + TrailerId }
+        className="w-screen aspect-video"
+        src={videoSrc}
         title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; 
-       autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
       ></iframe>
     </div>
   );
 };
 
 export default VideoBackground;
+

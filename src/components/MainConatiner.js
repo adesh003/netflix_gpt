@@ -11,14 +11,14 @@ function MainConatiner() {
   const mainMovie = movies[1];
 
 
-  console.log(mainMovie);
+
   const{original_title
-, overview} =  mainMovie;
+, overview,id} =  mainMovie;
 
   return (
     <div>
      <VideoTiltle original_title={original_title} overview={overview}/> 
-      <VideoBackground />
+      <VideoBackground movieId={id}/>
       
     </div>
   )
