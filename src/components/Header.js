@@ -1,13 +1,14 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import React, { useEffect } from "react";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { NETFLIX_LOGO, USER_AVATAR } from "../utils/constant";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const user = useSelector((store) => store.user);
 
@@ -16,6 +17,7 @@ const Header = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        // user login hua -> Redux store me user data daldo
         const { uid, email, displayName, photoURL } = user;
         dispatch(
           addUser({
@@ -25,7 +27,7 @@ const Header = () => {
             displayName: displayName,
           })
         );
-        navigate("/browse");
+        // navigate("/browse");
       } else {
         dispatch(removeUser());
         navigate("/");
@@ -33,44 +35,59 @@ const Header = () => {
     });
 
     return () => unsubscribe();
-     
-  }, [dispatch,navigate]);
+  }, [dispatch, navigate]);
+
+  // const handleMoviePage =()=>{
+  //   if (user) {
+  //     navigate("/gptmovieSearch");
+  //   }
+  // }
+  const handleMoviePage = () => {
+    if (user) {
+      navigate("/gptmovieSearch");
+    }
+  };
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        navigate("/");
+        // navigate("/");
       })
       .catch((error) => {
         // navigate("/error")
+        console.error("Sign out error:", error);
       });
   };
   return (
     <div className="absolute top-0 left-0 w-full py-4 px-8 bg-gradient-to-b from-black z-10 flex justify-between items-center">
       <div className="flex items-center">
-        <img
-          className="w-44"
-          src={NETFLIX_LOGO}
-          alt="netflix_logo"
-        />
+        <img className="w-44" src={NETFLIX_LOGO} alt="netflix_logo" />
         {user && ( // Conditionally render navigation links
           <div className="hidden md:flex ml-10 text-white">
-            <p className="mr-6 cursor-pointer hover:text-gray-300">Home</p>
+            {/* <p className="mr-6 cursor-pointer hover:text-gray-300">Home</p>
             <p className="mr-6 cursor-pointer hover:text-gray-300">TV Shows</p>
             <p className="mr-6 cursor-pointer hover:text-gray-300">Movies</p>
             <p className="mr-6 cursor-pointer hover:text-gray-300">
               New & Popular
             </p>
-            <p className="mr-6 cursor-pointer hover:text-gray-300">My List</p>
+            <p className="mr-6 cursor-pointer hover:text-gray-300">My List</p> */}
           </div>
         )}
       </div>
       {user && ( // Conditionally render profile icons and log out button
         <div className="flex items-center">
+           {location.pathname === "/browse" && (
+            <button
+              onClick={handleMoviePage}
+              className="bg-violet-600 px-3 py-2 mr-3 text-white rounded-md"
+            >
+              GPT Search
+            </button>
+          )}
+
           {/* Search Icon as SVG */}
           <svg
-           
             className="h-6 w-6 text-white mr-4 cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
@@ -83,9 +100,9 @@ const Header = () => {
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
           </svg>
+
           {/* Bell Icon as SVG */}
           <svg
-         
             className="h-6 w-6 text-white mr-4 cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
@@ -100,7 +117,7 @@ const Header = () => {
           </svg>
           <img
             className="w-8 h-8 rounded-md cursor-pointer"
-            src={ USER_AVATAR}
+            src={USER_AVATAR}
             alt="profile_icon"
           />
           <div>

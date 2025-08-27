@@ -1,8 +1,11 @@
 import React from 'react'
 import MovieList from './movieListData/MovieList'
 import { useSelector } from 'react-redux'
+// import { unstable_RouterContextProvider } from 'react-router-dom'
+// import usePopularMovies from '../hooks/usePopularMovies'
 
 const SecondaryComponent = () => {
+
 
 
 
@@ -14,18 +17,13 @@ return (
 {/* relative z-20 -mt-64 px-10 bg-black/70 rounded-lg */}
    
     <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-    <MovieList title={"Popular"} movies={movies.nowPlayingMovies} />
-    <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-    <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-    <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-    <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
+    <MovieList title={"Top Rated"} movies={movies.topRatedMovies}/>
+    <MovieList title={"Popular"} movies={movies.popularMovies}/>
+    <MovieList title={"Upcoming"} movies={movies.upcomingMovies}/>
+   
      </div>
   </div>
-    // <div className="relative z-20 -mt-64 max-w-7xl mx-auto px-10">
-    //   <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-    //   <MovieList title={"Popular"} movies={movies.popularMovies} />
-    //   <MovieList title={"Top Rated"} movies={movies.topRatedMovies} />
-    // </div>
+  
 );
 }
 export default SecondaryComponent

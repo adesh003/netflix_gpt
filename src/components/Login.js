@@ -10,6 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import{addUser} from '../utils/userSlice'
 import { HOMEPAGE_BG_IMAGE, USER_AVATAR } from "../utils/constant";
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
@@ -17,6 +18,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userName = useRef(null);
   const email = useRef(null);
@@ -62,6 +64,7 @@ const Login = () => {
                   displayName: displayName,
                 })
               );
+              navigate("/browse"); /// redirct to mainComponent
            
             })
             .catch((error) => {
@@ -85,9 +88,19 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          const { uid, email, displayName, photoURL } = user;
 
-      
-          // ...
+          // Redux me user add kar rahe hain
+          dispatch(
+            addUser({
+              uid: uid,
+              email: email,
+              photoURL: photoURL,
+              displayName: displayName,
+            })
+          );
+
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
