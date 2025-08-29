@@ -12,7 +12,7 @@ const useUpcomingMovies = ()=> {
             dispatch(setUpcomingMovies(json.results))
             }
             catch(err){
-            console.log(err.messgage);
+            console.log("fetch nhi ho rha " , err.messgage);
         }
 
        

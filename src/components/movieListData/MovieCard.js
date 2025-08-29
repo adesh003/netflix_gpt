@@ -1,7 +1,9 @@
 import { MOVIE_POSTER } from '../../utils/constant'
 
 function MovieCard({posterPath}) {
+  if(!posterPath) return null;
   return (
+    
     <div>
       <div className='w-48 px-4'>
         <img 

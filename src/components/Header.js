@@ -37,14 +37,16 @@ const Header = () => {
     return () => unsubscribe();
   }, [dispatch, navigate]);
 
-  // const handleMoviePage =()=>{
-  //   if (user) {
-  //     navigate("/gptmovieSearch");
-  //   }
-  // }
+
   const handleMoviePage = () => {
     if (user) {
       navigate("/gptmovieSearch");
+    }
+  };
+
+  const handleHomePage = () => {
+    if (user) {
+      navigate("/browse");
     }
   };
 
@@ -83,6 +85,14 @@ const Header = () => {
               className="bg-violet-600 px-3 py-2 mr-3 text-white rounded-md"
             >
               GPT Search
+            </button>
+          )}
+           {location.pathname === "/gptmovieSearch" && (
+            <button
+              onClick={handleHomePage}
+              className="bg-violet-600 px-3 py-2 mr-3 text-white rounded-md"
+            >
+              Home Page
             </button>
           )}
 

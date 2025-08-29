@@ -16,7 +16,7 @@ const nowPlayingMovieList = async () =>{
 
 
 } catch(err){
-  console.log(err.message);
+  console.log("fetch nhi ho rha " , err.messgage);
 }
 }
 

@@ -10,6 +10,8 @@ function MainConatiner() {
   if (!movies || movies.length === 0) return <h1 className="text-white">Loading...</h1>;
 
   const mainMovie = movies[0];
+  
+  console.log("comming" ,mainMovie);
 
   // Safe destructuring
   const { original_title, overview, id } = mainMovie;
