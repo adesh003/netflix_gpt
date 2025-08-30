@@ -1,5 +1,3 @@
-
-
 import useTrailerVideo from "../../hooks/useTrailerVideo";
 import { useSelector } from "react-redux";
 

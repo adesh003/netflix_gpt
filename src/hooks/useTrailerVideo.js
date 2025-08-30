@@ -30,8 +30,8 @@ const useTrailerVideo = (movieId) => {
       }
     };
 
-    if (movieId) getMovieData(); // ✅ safe check
-  }, [movieId, dispatch]); // ✅ no warning now
+    if (movieId) getMovieData(); 
+  }, [movieId, dispatch]); 
 };
 
 export default useTrailerVideo;

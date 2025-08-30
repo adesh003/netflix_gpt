@@ -13,7 +13,7 @@ function MainConatiner() {
   
   console.log("comming" ,mainMovie);
 
-  // Safe destructuring
+  
   const { original_title, overview, id } = mainMovie;
   
 

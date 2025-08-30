@@ -62,9 +62,10 @@ const Header = () => {
       });
   };
   return (
-    <div className="absolute top-0 left-0 w-full py-4 px-8 bg-gradient-to-b from-black z-10 flex justify-between items-center">
-      <div className="flex items-center">
-        <img className="w-44" src={NETFLIX_LOGO} alt="netflix_logo" />
+  <div className="absolute top-0 left-0 w-full py-4 px-8 bg-transparent z-10 flex justify-between items-center">      <div className="flex items-center">
+        <img 
+        onClick={handleHomePage}
+        className="w-44" src={NETFLIX_LOGO} alt="netflix_logo" />
         {user && ( // Conditionally render navigation links
           <div className="hidden md:flex ml-10 text-white">
             {/* <p className="mr-6 cursor-pointer hover:text-gray-300">Home</p>
