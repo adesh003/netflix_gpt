@@ -147,7 +147,7 @@ const Login = () => {
 
         <button
           onClick={handleBtnData}
-          className="p-4 my-4 cursor-pointer bg-red-700 text-white rounded-lg"
+          className="p-4 my-4 cursor-pointer bg-red-700 hover:bg-red-500 text-white rounded-lg"
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>

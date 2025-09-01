@@ -11,11 +11,13 @@ const SecondaryComponent = () => {
 
 const movies = useSelector((store) => store.movies);
 
+
 return (
   <div className='bg-black '>
     <div className='-mt-52 z-20 relative p-10'>
-{/* relative z-20 -mt-64 px-10 bg-black/70 rounded-lg */}
-   
+
+
+
     <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
     <MovieList title={"Top Rated"} movies={movies.topRatedMovies}/>
     <MovieList title={"Popular"} movies={movies.popularMovies}/>

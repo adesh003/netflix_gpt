@@ -9,7 +9,7 @@ function ShowGptMovies() {
   if (!movieName) return null;
 
   return (
-    <div className=" m-7 rounded-lg bg-gray-800 opacity-80  relative z-20">
+    <div className=" m-7 rounded-lg bg-gray-800   relative z-20">
       <div className="max-w-7xl mx-auto">
         {movieName.map((name, index) => (
           <MovieList
